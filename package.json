@@ -1,0 +1,18 @@
+{
+    "name": "myflix-client",
+    "version": "1.0.0",
+    "description": "Frontend application for the myFlix app",
+    "main": "index.js",
+    "scripts": {
+        "start": "parcel src/index.html",
+        "build": "parcel build src/index.html"
+    },
+    "author": "James",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "@babel/preset-react": "^7.26.3",
+        "parcel": "^2.13.3"
+    }
+}
