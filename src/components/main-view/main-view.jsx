@@ -1,11 +1,10 @@
-export const MainView = () => {
-    return (
-      <div>
-        <div>Eloquent JavaScript</div>
-        <div>Mastering JavaScript Functional Programming</div>
-        <div>JavaScript: The Good Parts</div>
-        <div>JavaScript: The Definitive Guide</div>
-        <div>The Road to React</div>
-      </div>
-    );
-  };
+import React from 'react';
+import './MovieCard.scss';
+
+export const MovieCard = ({ movie, onMovieClick }) => {
+  return (
+    <div className="movie-card" onClick={() => onMovieClick(movie)}>
+      <h2>{movie.title}</h2>
+    </div>
+  );
+};

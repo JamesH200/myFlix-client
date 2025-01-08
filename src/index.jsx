@@ -1,13 +1,12 @@
 import { createRoot } from "react-dom/client";
-// Import the main SCSS file for styling
-import "./index.scss";
+import { MainView } from "./components/main-view/MainView"; // Import MainView component
+import "./index.scss"; // Import the main SCSS file for styling
 
-// Main component for the app
+// Main application component
 const MyFlixApplication = () => {
   return (
     <div className="my-flix">
-      <h1>Welcome to MyFlix</h1>
-      <p>Good Morning! Explore your favorite movies here.</p>
+      <MainView /> {/* Render the MainView component */}
     </div>
   );
 };
