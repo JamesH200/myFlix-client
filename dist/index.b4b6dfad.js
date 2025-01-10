@@ -2947,34 +2947,28 @@ $parcel$ReactRefreshHelpers$98a3.prelude(module);
 try {
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
-var _mainView = require("./components/main-view/main-view"); // Import main-view component
-var _indexScss = require("./index.scss"); // Import the main SCSS file for styling
-// Main application component
+var _mainView = require("./components/main-view/main-view");
+var _indexScss = require("./index.scss");
 const MyFlixApplication = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "my-flix",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main-view", {}, void 0, false, {
-                fileName: "src/index.jsx",
-                lineNumber: 9,
-                columnNumber: 7
-            }, undefined),
-            " "
-        ]
-    }, void 0, true, {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+            fileName: "src/index.jsx",
+            lineNumber: 8,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 8,
+        lineNumber: 7,
         columnNumber: 5
     }, undefined);
 };
 _c = MyFlixApplication;
-// Find the root element in the DOM
-const container = document.getElementById("root");
+const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
-// Render the main application component into the root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 19,
+    lineNumber: 15,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -18744,6 +18738,7 @@ var _mainViewScss = require("./main-view.scss");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
+    // Movies state
     const [movies] = (0, _react.useState)([
         {
             title: "The Creator",
@@ -18767,33 +18762,38 @@ const MainView = ()=>{
             posterImage: "https://example.com/inception-poster.jpg"
         }
     ]);
+    // Selected movie state
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    // Handler for when a movie card is clicked
     const onMovieClick = (movie)=>{
         setSelectedMovie(movie);
     };
+    // Handler for navigating back to the main view
     const onBackClick = ()=>{
         setSelectedMovie(null);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "main-view",
-        children: selectedMovie ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+        children: selectedMovie ? // Render MovieView when a movie is selected
+        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
             movie: selectedMovie,
             onBackClick: onBackClick
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 44,
+            lineNumber: 49,
             columnNumber: 9
-        }, undefined) : movies.map((movie, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+        }, undefined) : // Render MovieCard list if no movie is selected
+        movies.map((movie, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                 movie: movie,
                 onMovieClick: onMovieClick
             }, index, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 47,
+                lineNumber: 53,
                 columnNumber: 11
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 42,
+        lineNumber: 46,
         columnNumber: 5
     }, undefined);
 };
@@ -18897,7 +18897,6 @@ const MovieView = ({ movie, onBackClick })=>{
         className: "movie-view",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                className: "movie-poster",
                 src: movie.posterImage,
                 alt: `${movie.title} poster`
             }, void 0, false, {
@@ -18906,74 +18905,69 @@ const MovieView = ({ movie, onBackClick })=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                className: "movie-title",
                 children: movie.title
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 12,
+                lineNumber: 8,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                className: "movie-description",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
                         children: "Description:"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 14,
-                        columnNumber: 9
+                        lineNumber: 9,
+                        columnNumber: 10
                     }, undefined),
                     " ",
                     movie.description
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 13,
+                lineNumber: 9,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                className: "movie-genre",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
                         children: "Genre:"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 17,
-                        columnNumber: 9
+                        lineNumber: 10,
+                        columnNumber: 10
                     }, undefined),
                     " ",
                     movie.genre
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 16,
+                lineNumber: 10,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                className: "movie-director",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
                         children: "Director:"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 20,
-                        columnNumber: 9
+                        lineNumber: 11,
+                        columnNumber: 10
                     }, undefined),
                     " ",
                     movie.director
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 19,
+                lineNumber: 11,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                className: "back-button",
                 onClick: onBackClick,
                 children: "Back"
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 22,
+                lineNumber: 12,
                 columnNumber: 7
             }, undefined)
         ]
