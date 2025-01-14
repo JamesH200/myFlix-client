@@ -1,21 +1,5 @@
-.movie-view {
-    img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-  
-    h2 {
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-  
-    p {
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-  
-    button {
-      margin-top: 1rem;
-    }
+    .movie-image {
+    width: 300px;
+    height: auto; /* Maintains aspect ratio */
   }
   

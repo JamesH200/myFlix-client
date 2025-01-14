@@ -8,7 +8,7 @@ export const MainView = () => {
       _id: "1",
       title: "The Creator",
       image:
-        "http://www.impawards.com/2010/posters/inception_ver2_xlg.jpg",
+        "https://m.media-amazon.com/images/I/61DCEg5XJ1L._AC_UL640_FMwebp_QL65_.jpg",
       director: {
         name: "Gareth Edwards",
         bio: "A British filmmaker known for science fiction films.",
@@ -19,7 +19,7 @@ export const MainView = () => {
     {
       _id: "2",
       title: "Oblivion",
-      image: "https://image.tmdb.org/t/p/w500/oblivion-poster.jpg",
+      image: "https://m.media-amazon.com/images/I/6136qtFPxdL._AC_UL640_FMwebp_QL65_.jpg",
       director: {
         name: "Joseph Kosinski",
         bio: "An American director known for visually stunning films.",
@@ -30,7 +30,7 @@ export const MainView = () => {
     {
       _id: "3",
       title: "Inception",
-      image: "https://image.tmdb.org/t/p/w500/inception-poster.jpg",
+      image: "https://m.media-amazon.com/images/I/619PgEuyGXL._AC_UL640_FMwebp_QL65_.jpg",
       director: {
         name: "Christopher Nolan",
         bio: "A British-American filmmaker known for cerebral, non-linear storytelling.",
@@ -53,13 +53,14 @@ export const MainView = () => {
 
   return (
     <div>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie._id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
-        />
-      ))}
+      <h1>Movies</h1>
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie._id} onClick={() => setSelectedMovie(movie)}>
+            {movie.title}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
