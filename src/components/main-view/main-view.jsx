@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { MovieCard } from "../movie-card/MovieCard";
-import { MovieView } from "../movie-view/MovieView";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]); // Initially empty array
@@ -10,12 +10,8 @@ export const MainView = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const token = localStorage.getItem("token");
         const response = await fetch(
-          "https://mymovieapi-19a25acdbd19.herokuapp.com/movies",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          "https://mymovieapi-19a25acdbd19.herokuapp.com/movies"
         );
 
         if (!response.ok) {
@@ -56,3 +52,4 @@ export const MainView = () => {
     </div>
   );
 };
+

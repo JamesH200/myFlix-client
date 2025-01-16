@@ -18737,48 +18737,28 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            _id: "1",
-            title: "The Creator",
-            image: "https://m.media-amazon.com/images/I/61DCEg5XJ1L._AC_UL640_FMwebp_QL65_.jpg",
-            director: {
-                name: "Gareth Edwards",
-                bio: "A British filmmaker known for science fiction films."
-            },
-            description: "A futuristic story about AI and human conflict.",
-            genre: "Science Fiction"
-        },
-        {
-            _id: "2",
-            title: "Oblivion",
-            image: "https://m.media-amazon.com/images/I/6136qtFPxdL._AC_UL640_FMwebp_QL65_.jpg",
-            director: {
-                name: "Joseph Kosinski",
-                bio: "An American director known for visually stunning films."
-            },
-            description: "A dystopian future where Earth is abandoned.",
-            genre: "Science Fiction"
-        },
-        {
-            _id: "3",
-            title: "Inception",
-            image: "https://m.media-amazon.com/images/I/619PgEuyGXL._AC_UL640_FMwebp_QL65_.jpg",
-            director: {
-                name: "Christopher Nolan",
-                bio: "A British-American filmmaker known for cerebral, non-linear storytelling."
-            },
-            description: "A heist within the mind.",
-            genre: "Thriller"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]); // Initially empty array
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    // Fetch movies from the API
+    (0, _react.useEffect)(()=>{
+        const fetchMovies = async ()=>{
+            try {
+                const response = await fetch("https://mymovieapi-19a25acdbd19.herokuapp.com/movies");
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const data = await response.json();
+                setMovies(data); // Populate the movies state with API data
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+            }
+        };
+        fetchMovies();
+    }, []);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 47,
+        lineNumber: 33,
         columnNumber: 7
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -18787,31 +18767,35 @@ const MainView = ()=>{
                 children: "Movies"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 56,
+                lineNumber: 42,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                        onClick: ()=>setSelectedMovie(movie),
-                        children: movie.title
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    flexWrap: "wrap"
+                },
+                children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movie: movie,
+                        onMovieClick: (movie)=>setSelectedMovie(movie)
                     }, movie._id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 59,
+                        lineNumber: 45,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 57,
+                lineNumber: 43,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 55,
+        lineNumber: 41,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "FP7GWoYk2QxkjR22DIwL6t80Zec=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
