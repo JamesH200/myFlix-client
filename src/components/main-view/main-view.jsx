@@ -13,9 +13,7 @@ export const MainView = () => {
         const token = localStorage.getItem("token");
         const response = await fetch(
           "https://mymovieapi-19a25acdbd19.herokuapp.com/movies",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          
         );
 
         if (!response.ok) {

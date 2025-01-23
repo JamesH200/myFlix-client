@@ -18744,11 +18744,7 @@ const MainView = ()=>{
         const fetchMovies = async ()=>{
             try {
                 const token = localStorage.getItem("token");
-                const response = await fetch("https://mymovieapi-19a25acdbd19.herokuapp.com/movies", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const response = await fetch("https://mymovieapi-19a25acdbd19.herokuapp.com/movies");
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const data = await response.json();
                 setMovies(data); // Populate the movies state with API data
@@ -18763,7 +18759,7 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 37,
+        lineNumber: 35,
         columnNumber: 7
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -18772,7 +18768,7 @@ const MainView = ()=>{
                 children: "Movies"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 46,
+                lineNumber: 44,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -18785,18 +18781,18 @@ const MainView = ()=>{
                         onMovieClick: (movie)=>setSelectedMovie(movie)
                     }, movie._id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 49,
+                        lineNumber: 47,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 47,
+                lineNumber: 45,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 45,
+        lineNumber: 43,
         columnNumber: 5
     }, undefined);
 };
