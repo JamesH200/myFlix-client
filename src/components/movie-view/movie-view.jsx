@@ -1,57 +1,58 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./movie-view.scss"; // Import a CSS file for styling (optional)
 
 export const MovieView = ({ movie, onBackClick }) => {
+  console.log("MovieView - movie object:", movie); // Debugging log
+
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-      <button
-        onClick={onBackClick}
-        style={{ marginBottom: "20px", padding: "10px 20px", cursor: "pointer" }}
-      >
+    <div className="movie-view-container">
+      <button className="back-button" onClick={onBackClick}>
         Back to Movie List
       </button>
-      <h2>{movie.title}</h2>
-      {movie.image && (
+      <h2 className="movie-title">{movie.Title || "N/A"}</h2>
+      {movie.ImagePath && (
         <img
-          src={movie.image}
-          alt={movie.title}
-          style={{
-            width: "100%",
-            maxHeight: "400px",
-            objectFit: "contain",
-            marginBottom: "20px",
-          }}
+          src={movie.ImagePath}
+          alt={movie.Title}
+          className="movie-image"
         />
       )}
-      <p>
-        <strong>Genre:</strong> {movie.genre || "N/A"}
-      </p>
-      <p>
-        <strong>Director:</strong> {movie.director?.name || "N/A"}
-      </p>
-      <p>
-        <strong>Bio:</strong> {movie.director?.bio || "N/A"}
-      </p>
-      <p>
-        <strong>Description:</strong> {movie.description || "N/A"}
-      </p>
+      <div className="movie-details">
+        <p>
+          <strong>Genre:</strong> {movie.Genre?.Name || "N/A"}
+        </p>
+        <p>
+          <strong>Director:</strong> {movie.Director?.Name || "N/A"}
+        </p>
+        <p>
+          <strong>Bio:</strong> {movie.Director?.Bio || "N/A"}
+        </p>
+        <p>
+          <strong>Description:</strong> {movie.Description || "N/A"}
+        </p>
+      </div>
     </div>
   );
 };
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string,
-    genre: PropTypes.string,
-    director: PropTypes.shape({
-      name: PropTypes.string,
-      bio: PropTypes.string,
+    Title: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,
     }),
-    description: PropTypes.string,
+    Director: PropTypes.shape({
+      Name: PropTypes.string,
+      Bio: PropTypes.string,
+    }),
+    Description: PropTypes.string,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
 };
+
+export default MovieView;
 
 
 
