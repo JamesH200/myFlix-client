@@ -1,5 +1,47 @@
-    .movie-image {
-    width: 300px;
-    height: auto; /* Maintains aspect ratio */
-  }
+.movie-view-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.movie-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.movie-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.movie-details {
+  text-align: left;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.movie-details p {
+  margin: 10px 0;
+}
   

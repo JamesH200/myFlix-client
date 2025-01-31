@@ -1,2 +1,75 @@
+.movie-card {
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  transition: transform .2s, box-shadow .2s;
+}
 
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px #0003;
+}
+
+.movie-image {
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.movie-genre {
+  color: #555;
+  font-size: 14px;
+}
+
+.movie-view-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.back-button {
+  cursor: pointer;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.movie-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.movie-image {
+  object-fit: contain;
+  border-radius: 10px;
+  width: 100%;
+  max-height: 400px;
+  margin-bottom: 20px;
+}
+
+.movie-details {
+  text-align: left;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.movie-details p {
+  margin: 10px 0;
+}
 /*# sourceMappingURL=index.2212206d.css.map */
