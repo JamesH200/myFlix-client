@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view"; // Import the SignupView component
+import { SignupView } from "../signup-view/signup-view";
+import { Container, Row, Col, Button, Alert, Spinner } from "react-bootstrap"; // Import Bootstrap components
 import "./main-view.scss";
 
 export const MainView = () => {
@@ -11,18 +12,17 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(() => {
-    // Check localStorage for user data on initial load
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [showSignup, setShowSignup] = useState(false); // State to toggle between LoginView and SignupView
+  const [showSignup, setShowSignup] = useState(false);
 
   // Fetch movies when the user is logged in
   useEffect(() => {
     if (user) {
       const fetchMovies = async () => {
         try {
-          console.log("Fetching movies..."); // Debugging log
+          console.log("Fetching movies...");
           const response = await fetch("https://mymovieapi-19a25acdbd19.herokuapp.com/movies", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
@@ -32,7 +32,7 @@ export const MainView = () => {
           }
 
           const data = await response.json();
-          console.log("Fetched movies:", data); // Debugging log
+          console.log("Fetched movies:", data);
           setMovies(data);
         } catch (error) {
           console.error("Error fetching movies:", error);
@@ -72,37 +72,56 @@ export const MainView = () => {
 
   // If there's an error, display the error message
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return (
+      <Container className="mt-5">
+        <Alert variant="danger">{error}</Alert>
+      </Container>
+    );
   }
 
   // If no movies are available, display a loading message
   if (!Array.isArray(movies) || movies.length === 0) {
-    return <div>Loading movies...</div>;
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        <p>Loading movies...</p>
+      </Container>
+    );
   }
 
   // Display the list of movies
   return (
-    <div>
-      <h1>Movies</h1>
-      <button
-        onClick={() => {
-          localStorage.removeItem("user");
-          localStorage.removeItem("token");
-          setUser(null);
-        }}
-      >
-        Logout
-      </button>
-      <div className="movie-list">
+    <Container fluid className="mt-4">
+      <Row className="justify-content-between align-items-center mb-4">
+        <Col>
+          <h1>Movies</h1>
+        </Col>
+        <Col className="text-end">
+          <Button
+            variant="danger"
+            onClick={() => {
+              localStorage.removeItem("user");
+              localStorage.removeItem("token");
+              setUser(null);
+            }}
+          >
+            Logout
+          </Button>
+        </Col>
+      </Row>
+      <Row className="g-4">
         {movies.map((movie) => (
-          <MovieCard
-            key={movie._id}
-            movie={movie}
-            onMovieClick={() => setSelectedMovie(movie)}
-          />
+          <Col key={movie._id} xs={12} sm={6} md={4} lg={3}>
+            <MovieCard
+              movie={movie}
+              onMovieClick={() => setSelectedMovie(movie)}
+            />
+          </Col>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 
