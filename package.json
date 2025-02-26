@@ -4,24 +4,22 @@
     "description": "Frontend application for the myFlix app",
     "main": "index.js",
     "scripts": {
-        "start": "parcel src/index.html",
-        "build": "parcel build src/index.html"
+      "start": "parcel src/index.html",
+      "build": "parcel build src/index.html"
     },
     "author": "James",
     "license": "ISC",
     "devDependencies": {
-        "@babel/core": "^7.26.0",
-        "@babel/preset-env": "^7.26.0",
-        "@babel/preset-react": "^7.26.3",
-        "@parcel/transformer-sass": "^2.13.3",
-        "parcel": "^2.13.3",
-        "process": "^0.11.10",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+      "@parcel/transformer-sass": "^2.13.3",
+      "parcel": "^2.13.3",
+      "process": "^0.11.10"
     },
     "dependencies": {
-        "bootstrap": "^5.3.3",
-        "prop-types": "^15.8.1",
-        "react-bootstrap": "^2.10.7"
+      "bootstrap": "^5.3.3",
+      "prop-types": "^15.8.1",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-bootstrap": "^2.10.7",
+      "react-router-dom": "^6.22.3"
     }
-}
+  }

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { Form, Button, Card, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,56 +30,72 @@ export const SignupView = ({ onSignedUp }) => {
       .then((response) => {
         if (response.ok) {
           alert("Signup successful! Please log in.");
-          onSignedUp(); // Redirect to login after successful signup
+          onSignedUp(); // Call the onSignedUp callback
+          navigate("/login"); // Redirect to the login page
         } else {
-          alert("Signup failed. Please try again.");
+          throw new Error("Signup failed. Please try again.");
         }
       })
       .catch((e) => {
-        alert("Something went wrong");
+        setError(e.message);
       });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          minLength="5"
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Birthday:
-        <input
-          type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Sign Up</button>
-    </form>
+    <Card className="mt-4">
+      <Card.Body>
+        <Card.Title>Sign Up</Card.Title>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formUsername" className="mb-3">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              minLength="5"
+              placeholder="Enter username"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter password"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Enter email"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formBirthday" className="mb-3">
+            <Form.Label>Birthday</Form.Label>
+            <Form.Control
+              type="date"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
