@@ -1,27 +1,3 @@
-.my-flix {
-  background-color: #f8f9fa;
-  padding: 20px;
-}
-
-.card {
-  transition: transform .2s;
-  box-shadow: 0 4px 8px #0000001a;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.btn-primary {
-  background-color: #ff6f61;
-  border-color: #ff6f61;
-}
-
-.btn-primary:hover {
-  background-color: #ff3b2f;
-  border-color: #ff3b2f;
-}
-
 .movie-card {
   cursor: pointer;
   text-align: center;
@@ -95,6 +71,43 @@
 
 .movie-details p {
   margin: 10px 0;
+}
+
+.movie-list {
+  padding: 20px;
+}
+
+.card {
+  transition: transform .2s;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+.my-flix {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.card {
+  transition: transform .2s;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  background-color: #ff6f61;
+  border-color: #ff6f61;
+}
+
+.btn-primary:hover {
+  background-color: #ff3b2f;
+  border-color: #ff3b2f;
 }
 
 :root, [data-bs-theme="light"] {

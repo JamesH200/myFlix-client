@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { Container, Row, Col, Button, Alert, Spinner } from "react-bootstrap"; // Import Bootstrap components
+import { ProfileView } from "../profile-view/profile-view"; // Import ProfileView
+import { NavigationBar } from "../navigation-bar/navigation-bar"; // Import NavigationBar
+import { Routes, Route, Navigate } from "react-router-dom"; // Correct import
+import { Container, Row, Col, Button, Alert, Spinner } from "react-bootstrap";
 import "./main-view.scss";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
-  const [showSignup, setShowSignup] = useState(false);
 
   // Fetch movies when the user is logged in
   useEffect(() => {
@@ -44,31 +44,30 @@ export const MainView = () => {
     }
   }, [user]);
 
-  // If no user is logged in, display the LoginView or SignupView
-  if (!user) {
-    return showSignup ? (
-      <SignupView onSignedUp={() => setShowSignup(false)} />
-    ) : (
-      <LoginView
-        onLoggedIn={(user, token) => {
-          localStorage.setItem("user", JSON.stringify(user));
-          localStorage.setItem("token", token);
-          setUser(user);
-        }}
-        onNavigateToSignup={() => setShowSignup(true)}
-      />
-    );
-  }
-
-  // If a movie is selected, display the MovieView
-  if (selectedMovie) {
-    return (
-      <MovieView
-        movie={selectedMovie}
-        onBackClick={() => setSelectedMovie(null)}
-      />
-    );
-  }
+  // Handle adding/removing a movie from favorites
+  const handleToggleFavorite = (movieId) => {
+    const method = user.FavoriteMovies.includes(movieId) ? "DELETE" : "POST";
+    fetch(`https://mymovieapi-19a25acdbd19.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+      method,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to update favorites");
+        }
+      })
+      .then((updatedUser) => {
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
+      })
+      .catch((e) => {
+        console.error("Error updating favorites:", e);
+      });
+  };
 
   // If there's an error, display the error message
   if (error) {
@@ -91,54 +90,66 @@ export const MainView = () => {
     );
   }
 
-  // Display the list of movies
   return (
-    <Container fluid className="mt-4">
-      <Row className="justify-content-between align-items-center mb-4">
-        <Col>
-          <h1>Movies</h1>
-        </Col>
-        <Col className="text-end">
-          <Button
-            variant="danger"
-            onClick={() => {
-              localStorage.removeItem("user");
-              localStorage.removeItem("token");
-              setUser(null);
-            }}
-          >
-            Logout
-          </Button>
-        </Col>
-      </Row>
-      <Row className="g-4">
-        {movies.map((movie) => (
-          <Col key={movie._id} xs={12} sm={6} md={4} lg={3}>
-            <MovieCard
-              movie={movie}
-              onMovieClick={() => setSelectedMovie(movie)}
+    <>
+      <NavigationBar user={user} setUser={setUser} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Container fluid className="mt-4">
+                <Row className="justify-content-between align-items-center mb-4">
+                  <Col>
+                    <h1>Movies</h1>
+                  </Col>
+                  <Col className="text-end">
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("token");
+                        setUser(null);
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </Col>
+                </Row>
+                <Row className="g-4">
+                  {movies.map((movie) => (
+                    <Col key={movie._id} xs={12} sm={6} md={4} lg={3}>
+                      <MovieCard
+                        movie={movie}
+                        user={user}
+                        onToggleFavorite={handleToggleFavorite}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginView
+              onLoggedIn={(user, token) => {
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("token", token);
+                setUser(user);
+              }}
+              onNavigateToSignup={() => <Navigate to="/signup" replace />}
             />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+          }
+        />
+        <Route path="/signup" element={<SignupView onSignedUp={() => setUser(null)} />} />
+        <Route path="/movies/:movieId" element={<MovieView movies={movies} user={user} onToggleFavorite={handleToggleFavorite} />} />
+        <Route path="/profile" element={<ProfileView user={user} movies={movies} setUser={setUser} />} />
+      </Routes>
+    </>
   );
-};
-
-MainView.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      Title: PropTypes.string.isRequired,
-      Genre: PropTypes.shape({
-        Name: PropTypes.string,
-      }),
-      Director: PropTypes.shape({
-        Name: PropTypes.string,
-        Bio: PropTypes.string,
-      }),
-      Description: PropTypes.string,
-      ImagePath: PropTypes.string,
-    })
-  ),
 };
